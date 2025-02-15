@@ -8,6 +8,14 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+
+<!-- Probando incrustar componentes razor en una página mediante un div-->
+
+<div style="height:500px;width:300px">
+    <Formulario/>
+</div>
+
+
 @code {
     private int currentCount = 0;
 
