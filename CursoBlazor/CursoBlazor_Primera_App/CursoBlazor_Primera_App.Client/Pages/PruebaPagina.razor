@@ -1,36 +1,92 @@
-﻿@page "/PruebaPagina"
+﻿@page "/FlexBox"
 
 <!-- prueba de cómo agregar páginas a nuestra aplicación-->
+<!--Tutorial de felxbox y bootstrap-->
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>twitter</td>
-    </tr>
-  </tbody>
-</table>
+<h1> FLEXBOX</h1>
+<h2>Distribución horizontal</h2>
+
+<h3>display:flex;justify-content:space-between</h3>
+<p>Úbica los div (cajas) a cada extremo.</p>
+<div class="row" style="height:250px;display:flex;justify-content:space-between">
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+</div>
+
+<h3>display:flex;justify-content:space-around</h3>
+<p>Distribuye las cajas de manera horizontal.</p>
+<div class="row" style="height:250px;display:flex;justify-content:space-around">
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+</div>
+
+
+
+<h3>display:flex;justify-content:flex-start</h3>
+<p>Úbica los div (cajas) en el extremo izquierdo.</p>
+<div class="row" style="height:250px;display:flex;justify-content:flex-start">
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+</div>
+
+<h3>display:flex;justify-content:flex-end</h3>
+<p>Úbica los div (cajas) en el extremo derecho.</p>
+<div class="row" style="height:250px;display:flex;justify-content:flex-end">
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+</div>
+
+
+<h2>Distribución vertical</h2>
+
+<div class="row" style="height:500px">
+	<div class="col-4" style="border:solid black 5px;display:flex;align-items:flex-start">
+		<p>display:flex;align-items:flex-start</p>
+		<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+		<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	</div>
+	<div class="col-4" style="border:solid black 5px;display:flex;align-items:center">
+		<p>display:flex;align-items:center</p>
+		<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+		<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	</div>
+	<div class="col-4" style="border:solid black 5px;display:flex;align-items:flex-end">
+		<p>display:flex;align-items:flex-end</p>
+		<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+		<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	</div>
+</div>
+
+
+<h2>Flex Direction</h2>
+<div style="width:100%;display:flex;flex-wrap:wrap">
+	<p>display:flex;flex-wrap:wrap"</p>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+	<div style="height:100px;width:100px;background-color:green;margin:10px"></div>
+</div>
+
+<div class="row" style="height:500px;border:solid black 3px">
+	<div class="col-6" style="border:solid red 3px"></div>
+	<div class="col-6" style="border:solid red 3px">
+		<div class="row" style="border:solid blue 3px; height:400px"></div>
+		<div class="row" style="border:solid yellow 3px; height:100px"></div>
+	</div>
+
+</div>
 
 @code {
 
