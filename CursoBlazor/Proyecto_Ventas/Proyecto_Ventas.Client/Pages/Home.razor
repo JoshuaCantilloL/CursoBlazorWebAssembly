@@ -1,0 +1,161 @@
+﻿@page "/"
+@using Proyecto_Ventas.Shared
+
+<Header />
+<Sidebar />
+
+
+<main id="main" class="main">
+	<EditForm Model="MiVenta">
+		<div class="row">
+			<div class="col-2"><InputText @bind-Value=MiVenta.NombreCliente class="from-control" placeholder="Nombre cliente"></InputText></div>
+			<div class="col-2"><InputNumber @bind-Value=MiVenta.Precio class="from-control"placeholder="Precio"></InputNumber></div>	
+			<div class="col-2"><InputNumber @bind-Value=MiVenta.DineroRecibido class="from-control" placeholder="Dinero recibido"></InputNumber></div>
+			<div class="col-2">
+				<InputSelect @bind-Value=MiVenta.Transferencia class="form-control">
+					<option value="0">Efectivo</option>
+					<option value="1">Transferencia</option>
+				</InputSelect>
+			</div>	
+			<div class="col-2"><button type="submit" class="btn btn-success" @onclick="(()=> Guardar(MiVenta))" >Guardar</button></div>
+		</div>		
+	</EditForm>
+	<div class="row">
+		<div class="col-8">
+			<!-- Recent Sales -->
+			<div class="col-12">
+				<div class="card">	
+					<div class="card-body">
+						<h5 class="card-title">Registros <span>| Today</span></h5>
+
+						<table class="table table-borderless datatable">
+							<thead>
+								<tr>
+									<th scope="col">Id Cliente</th>
+									<th scope="col">Fecha</th>
+									<th scope="col">Nombre cliente</th>
+									<th scope="col">Precio</th>
+									<th scope="col">Cambio</th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach(var venta in Ventas)
+								{
+									<tr>
+										<td>@venta.IdVenta</td>
+										<td>@venta.Fecha</td>
+										<td>@venta.NombreCliente</td>
+										<td>@venta.Precio</td>
+										<td>@venta.Cambio</td>
+										<td><span class="badge bg-success">Efectivo</span></td>
+										<td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @onclick="(()=>Editar(venta))"><i class="bi bi-pencil"></i></button></td>
+									</tr>
+								}
+
+							</tbody>
+						</table>
+
+					</div>
+
+				</div>
+			</div><!-- End Recent Sales -->
+		</div>
+		<div class="col-4">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title">Resumen</h3>
+						<h4 class="card-text">Efectivo total: ???</h4>
+						<h4 class="card-text">Valor transacciones: ???</h4>
+						<h4 class="card-text"># Ventas: ???</h4>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<EditForm Model="EditarVenta">
+					<h4 class="card-text">Fecha:</h4>
+					<InputDate @bind-Value="EditarVenta.Fecha" class="form-control"></InputDate>
+					<h4 class="card-text">Nombre del cliente:</h4>
+					<InputText @bind-Value="EditarVenta.NombreCliente" class="form-control"></InputText>
+					<h4 class="card-text">Precio:</h4>
+					<InputNumber @bind-Value="EditarVenta.Precio" class="form-control"></InputNumber>
+					<h4 class="card-text">Dinero recibido:</h4>
+					<InputNumber @bind-Value="EditarVenta.DineroRecibido" class="form-control"></InputNumber>
+					<h4 class="card-text">Cambio:</h4>
+					<InputNumber @bind-Value="EditarVenta.Cambio" class="form-control"></InputNumber>
+					<h4 class="card-text">Metódo de pago:</h4>
+					<InputSelect @bind-Value=EditarVenta.Transferencia class="form-control">
+						<option value="0">Efectivo</option>
+						<option value="1">Transferencia</option>
+					</InputSelect>
+				</EditForm>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+@code{
+	public static List<Venta> Ventas = new List<Venta>();
+
+	Venta MiVenta = new Venta();
+	Venta EditarVenta = new Venta();
+
+	void Guardar(Venta miventa)
+	{
+		Venta nuevaVenta = new Venta();
+		nuevaVenta.IdVenta = Ventas.Count()+1;
+		nuevaVenta.Fecha = miventa.Fecha;		
+		nuevaVenta.NombreCliente = miventa.NombreCliente;
+		nuevaVenta.Precio = miventa.Precio;
+		nuevaVenta.DineroRecibido = miventa.DineroRecibido;
+		nuevaVenta.Cambio = miventa.DineroRecibido-miventa.Precio;
+		nuevaVenta.Transferencia = miventa.Transferencia;
+
+		Ventas.Add(nuevaVenta);
+
+
+		//Limpiar campos
+		MiVenta.IdVenta = 0;
+		MiVenta.Fecha = DateTime.Now;
+		MiVenta.NombreCliente = String.Empty;
+		MiVenta.Precio = null;
+		MiVenta.DineroRecibido = null;
+		MiVenta.Cambio = null;
+		MiVenta.Transferencia = 0;
+
+
+	}
+	void Editar(Venta miventa)
+	{
+		EditarVenta.IdVenta = Ventas.Count() + 1;
+		EditarVenta.Fecha = miventa.Fecha;
+		EditarVenta.NombreCliente = miventa.NombreCliente;
+		EditarVenta.Precio = miventa.Precio;
+		EditarVenta.DineroRecibido = miventa.DineroRecibido;
+		EditarVenta.Cambio = miventa.DineroRecibido - miventa.Precio;
+		EditarVenta.Transferencia = miventa.Transferencia;
+		
+	}
+};
